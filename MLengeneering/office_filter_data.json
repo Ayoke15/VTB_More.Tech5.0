@@ -1,0 +1,56 @@
+{
+    "distance": {
+        "success_count": 92,
+        "total_count": 173,
+        "alpha": 93,
+        "beta": 82
+    },
+    "rko": {
+        "success_count": 106,
+        "total_count": 173,
+        "alpha": 107,
+        "beta": 68
+    },
+    "current_workload": {
+        "success_count": 89,
+        "total_count": 173,
+        "alpha": 90,
+        "beta": 85
+    },
+    "has_ramp": {
+        "success_count": 100,
+        "total_count": 173,
+        "alpha": 101,
+        "beta": 74
+    },
+    "office_type": {
+        "success_count": 116,
+        "total_count": 173,
+        "alpha": 117,
+        "beta": 58
+    },
+    "sale_point_format": {
+        "success_count": 106,
+        "total_count": 173,
+        "alpha": 107,
+        "beta": 68
+    },
+    "suo_availability": {
+        "success_count": 75,
+        "total_count": 173,
+        "alpha": 76,
+        "beta": 99
+    },
+    "kep": {
+        "success_count": 70,
+        "total_count": 173,
+        "alpha": 71,
+        "beta": 104
+    },
+    "my_branch": {
+        "success_count": 72,
+        "total_count": 173,
+        "alpha": 73,
+        "beta": 102
+    }
+}

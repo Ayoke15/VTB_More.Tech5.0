@@ -1,0 +1,27 @@
+{
+    "distance": {
+        "success_count": 71,
+        "total_count": 164,
+        "alpha": 72,
+        "beta": 94
+    },
+    "allDay": {
+        "success_count": 56,
+        "total_count": 164,
+        "alpha": 57,
+        "beta": 109
+    },
+    "service_total": {
+        "success_count": 93,
+        "total_count": 164,
+        "alpha": 94,
+        "beta": 72
+    },
+    "cash": {
+        "success_count": 101,
+        "total_count": 164,
+        "alpha": 102,
+        "beta": 64
+    },
+    "services": {}
+}

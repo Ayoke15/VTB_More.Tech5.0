@@ -1,0 +1,35 @@
+header {
+    position: fixed;
+    top: 0;
+    display: flex;
+    justify-content: end; /* Added to push the logo to the right */
+    align-items: center; /* Vertically center align the logo */
+    height: 80px;
+    width: 100%;
+    background: #ffffff;
+    border-bottom: 5px solid #00aaff; /* Combined border property */
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+.logo {
+    display: flex;
+    width: 30%;
+    height: 30%;
+    margin-left: 70%;
+}
+
+@media (max-width: 768px) {
+    header {
+        height: 60px; /* Adjust the height for mobile devices */
+    }
+    
+    .logo {
+        margin-right: 70%;
+        margin-left: 0%;
+        width: 20%;
+        height: 20%;
+        justify-content: start; /* Center the logo horizontally for mobile devices */
+    }
+}

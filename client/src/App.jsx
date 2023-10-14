@@ -4,7 +4,9 @@ import YandexMaps from './components/YandexMaps/YandexMaps'
 function App() {
   return (
     <>
+    <div>
      <Header />
+     </div>
      <YandexMaps />
     </>
   )

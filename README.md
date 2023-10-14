@@ -1,70 +1,83 @@
-# API Documentation for VTB_More.Tech5.0
+# Flask API для поиска офисов и банкоматов
 
-## Table of Contents
+Данный проект предоставляет API, который позволяет пользователям находить ближайшие офисы и банкоматы на основе заданных фильтров.
 
-1. [Introduction](#introduction)
-2. [Endpoints](#endpoints)
-   - [Get Offices](#get-offices)
-   - [Get ATMs](#get-atms)
-3. [Usage](#usage)
-4. [Responses](#responses)
+## Оглавление
 
----
+- [Установка](#установка)
+- [Запуск](#запуск)
+- [API Endpoints](#api-endpoints)
+  - [Получение офисов](#получение-офисов)
+  - [Получение банкоматов](#получение-банкоматов)
+- [Контакты](#контакты)
 
-## Introduction
+## Установка
 
-This API is specifically tailored to provide recommendations for offices and ATMs based on user input, which includes their current location and any specific filters they'd like to apply.
+1. Убедитесь, что у вас установлен Python.
+2. Установите необходимые библиотеки:
+```bash
+pip install Flask
+```
+3. Клонируйте этот репозиторий:
+```bash
+git clone https://github.com/Ayoke15/VTB_More.Tech5.0
+cd VTB_More.Tech5.0
+```
 
----
+## Запуск
 
-## Endpoints
+Для запуска сервера используйте команду:
 
-### Get Offices
+```bash
+python API.py
+```
 
-- **Endpoint**: `/get_offices`
-- **HTTP Method**: POST
-- **Payload**:
-  ```json
-  {
-      "user_location": [latitude, longitude],
-      "user_filters": {}
-  }
+Сервер будет доступен по адресу `http://localhost:8080`.
 
-Purpose: This endpoint will return the top 5 recommended offices based on the user's current location and filters.
-Get ATMs
-Endpoint: /get_atms
-HTTP Method: POST
-Payload:
+## API Endpoints
+
+### Получение офисов
+
+**URL**: `/get_offices`
+
+**Метод**: `POST`
+
+**Параметры запроса**:
+- `user_location`: массив из двух элементов, представляющих координаты пользователя (широта и долгота).
+- `user_filters`: объект с фильтрами, указанными пользователем.
+
+**Пример запроса**:
+```json
 {
-    "user_location": [latitude, longitude],
-    "user_filters": {}
+    "user_location": [55.7558, 37.6176],
+    "user_filters": {...}
 }
+```
 
-Purpose: This endpoint will return the top 5 recommended ATMs based on the user's current location and filters.
-Usage
-To interact with the API:
+**Ответ**:
+Возвращает топ-5 офисов, отсортированных по релевантности.
 
-Set up a POST request to the desired endpoint, either /get_offices for offices or /get_atms for ATMs.
-In the body of your request, include a JSON payload with your current user_location and any user_filters you wish to apply.
-The API will respond with the top 5 recommendations based on your criteria.
-Responses
-The API will return responses in the following formats:
+### Получение банкоматов
 
-For Offices:
-[
-    {
-        "id": "office_id",
-        "score": "score_value"
-    },
-    ...
-]
-For ATMs:
-[
-    {
-        "id": "atm_id",
-        "score": "score_value"
-    },
-    ...
-]
+**URL**: `/get_atms`
 
-Note: Replace placeholders (like "latitude", "longitude", etc.) with actual data when making requests.
+**Метод**: `POST`
+
+**Параметры запроса**:
+- `user_location`: массив из двух элементов, представляющих координаты пользователя (широта и долгота).
+- `user_filters`: объект с фильтрами, указанными пользователем.
+
+**Пример запроса**:
+```json
+{
+    "user_location": [55.7558, 37.6176],
+    "user_filters": {...}
+}
+```
+
+**Ответ**:
+Возвращает топ-5 банкоматов, отсортированных по релевантности.
+
+## Контакты
+
+Если у вас есть вопросы или предложения, пожалуйста, свяжитесь со мной по [email@example.com](mailto:email@example.com).

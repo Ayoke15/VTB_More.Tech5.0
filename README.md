@@ -50,7 +50,16 @@ python API.py
 ```json
 {
     "user_location": [55.7558, 37.6176],
-    "user_filters": {...}
+    "user_filters": {
+    "openHours": [
+      {
+        "days": "пт",
+        "hours": "09:00-17:00"
+      }
+    ],
+    "rko": "есть РКО",
+    "officeType": "Да (Зона Привилегия)",
+  }
 }
 ```
 
@@ -71,7 +80,26 @@ python API.py
 ```json
 {
     "user_location": [55.7558, 37.6176],
-    "user_filters": {...}
+    "user_filters": {
+    "services": {
+      "wheelchair": {
+        "serviceCapability": "UNKNOWN",
+        "serviceActivity": "UNKNOWN"
+      },
+      "nfcForBankCards": {
+        "serviceCapability": "UNKNOWN",
+        "serviceActivity": "UNAVAILABLE"
+      },
+      "supportsChargeRub": {
+        "serviceCapability": "SUPPORTED",
+        "serviceActivity": "AVAILABLE"
+      },
+      "supportsRub": {
+        "serviceCapability": "SUPPORTED",
+        "serviceActivity": "AVAILABLE"
+      }
+    }
+  }
 }
 ```
 

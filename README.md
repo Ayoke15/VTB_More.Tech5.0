@@ -1,19 +1,19 @@
-# API Documentation
-
-## Introduction
-
-This API is designed to fetch recommended offices and ATMs based on the user's location and specified filters.
-
----
+# API Documentation for VTB_More.Tech5.0
 
 ## Table of Contents
 
-- [Introduction](#introduction)
-- [Endpoints](#endpoints)
-  - [Get Offices](#get-offices)
-  - [Get ATMs](#get-atms)
-- [Usage](#usage)
-- [Responses](#responses)
+1. [Introduction](#introduction)
+2. [Endpoints](#endpoints)
+   - [Get Offices](#get-offices)
+   - [Get ATMs](#get-atms)
+3. [Usage](#usage)
+4. [Responses](#responses)
+
+---
+
+## Introduction
+
+This API is specifically tailored to provide recommendations for offices and ATMs based on user input, which includes their current location and any specific filters they'd like to apply.
 
 ---
 
@@ -21,63 +21,50 @@ This API is designed to fetch recommended offices and ATMs based on the user's l
 
 ### Get Offices
 
-**URL**: `/get_offices`
-
-**Method**: `POST`
-
-**Payload**:
-
-```json
-{
-  "user_location": [latitude, longitude],
-  "user_filters": {}
-}
-Description: Fetches the top 5 recommended offices based on the user's location and specified filters.
-
-Get ATMs
-URL: /get_atms
-
-Method: POST
-
-Payload:
-
-json
-Copy code
-{
-  "user_location": [latitude, longitude],
-  "user_filters": {}
-}
-Description: Fetches the top 5 recommended ATMs based on the user's location and specified filters.
-
-Usage
-To use this API, make a POST request to the respective endpoint (/get_offices or /get_atms) with the required payload.
-
-Responses
-Responses will be returned in the following format:
-
-For offices:
-
-json
-Copy code
-[
+- **Endpoint**: `/get_offices`
+- **HTTP Method**: POST
+- **Payload**:
+  ```json
   {
-    "id": "office_id",
-    "score": "score_value"
-  },
-  ...
+      "user_location": [latitude, longitude],
+      "user_filters": {}
+  }
+
+Purpose: This endpoint will return the top 5 recommended offices based on the user's current location and filters.
+Get ATMs
+Endpoint: /get_atms
+HTTP Method: POST
+Payload:
+{
+    "user_location": [latitude, longitude],
+    "user_filters": {}
+}
+
+Purpose: This endpoint will return the top 5 recommended ATMs based on the user's current location and filters.
+Usage
+To interact with the API:
+
+Set up a POST request to the desired endpoint, either /get_offices for offices or /get_atms for ATMs.
+In the body of your request, include a JSON payload with your current user_location and any user_filters you wish to apply.
+The API will respond with the top 5 recommendations based on your criteria.
+Responses
+The API will return responses in the following formats:
+
+For Offices:
+[
+    {
+        "id": "office_id",
+        "score": "score_value"
+    },
+    ...
 ]
 For ATMs:
-
-json
-Copy code
 [
-  {
-    "id": "atm_id",
-    "score": "score_value"
-  },
-  ...
+    {
+        "id": "atm_id",
+        "score": "score_value"
+    },
+    ...
 ]
-In case no offices or ATMs are found, a 400 Bad Request response will be returned with a corresponding message.
 
-Note: Ensure to replace placeholders (like "latitude", "longitude", etc.) with actual data when making requests.
-
+Note: Replace placeholders (like "latitude", "longitude", etc.) with actual data when making requests.

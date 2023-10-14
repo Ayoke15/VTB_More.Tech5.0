@@ -1,72 +1,83 @@
+# API Documentation
 
+## Introduction
 
-Welcome to MyAPI documentation. This API is designed to fetch recommended offices and ATMs based on the user's location and preferences.
+This API is designed to fetch recommended offices and ATMs based on the user's location and specified filters.
 
-## 📌 Table of Contents
-- [Getting Started](#getting-started)
-- [API Endpoints](#api-endpoints)
-  - [Fetch Recommended Offices](#fetch-recommended-offices)
-  - [Fetch Recommended ATMs](#fetch-recommended-atms)
-- [Contributions and Feedback](#contributions-and-feedback)
-- [License](#license)
+---
 
-## 🚀 Getting Started
+## Table of Contents
 
-To start using the API, ensure you have the necessary dependencies installed and run the application using:
+- [Introduction](#introduction)
+- [Endpoints](#endpoints)
+  - [Get Offices](#get-offices)
+  - [Get ATMs](#get-atms)
+- [Usage](#usage)
+- [Responses](#responses)
 
-```bash
-python API.py
-The API will be up and running at http://127.0.0.1:8080/.
+---
 
-📡 API Endpoints
-Fetch Recommended Offices
-Endpoint: /get_offices
+## Endpoints
+
+### Get Offices
+
+**URL**: `/get_offices`
+
+**Method**: `POST`
+
+**Payload**:
+
+```json
+{
+  "user_location": [latitude, longitude],
+  "user_filters": {}
+}
+Description: Fetches the top 5 recommended offices based on the user's location and specified filters.
+
+Get ATMs
+URL: /get_atms
+
 Method: POST
+
 Payload:
 
 json
 Copy code
 {
-    "user_location": [latitude, longitude],
-    "user_filters": {...}
+  "user_location": [latitude, longitude],
+  "user_filters": {}
 }
-Response:
-Returns the top 5 recommended offices based on the user's location and filters.
+Description: Fetches the top 5 recommended ATMs based on the user's location and specified filters.
+
+Usage
+To use this API, make a POST request to the respective endpoint (/get_offices or /get_atms) with the required payload.
+
+Responses
+Responses will be returned in the following format:
+
+For offices:
 
 json
 Copy code
 [
-    {"id": office_id1, "score": score1},
-    ...
+  {
+    "id": "office_id",
+    "score": "score_value"
+  },
+  ...
 ]
-⚠️ Errors:
-
-400 Bad Request: If no matching offices are found.
-Fetch Recommended ATMs
-Endpoint: /get_atms
-Method: POST
-Payload:
-
-json
-Copy code
-{
-    "user_location": [latitude, longitude],
-    "user_filters": {...}
-}
-Response:
-Returns the top 5 recommended ATMs based on the user's location and filters.
+For ATMs:
 
 json
 Copy code
 [
-    {"id": atm_id1, "score": score1},
-    ...
+  {
+    "id": "atm_id",
+    "score": "score_value"
+  },
+  ...
 ]
-⚠️ Errors:
+In case no offices or ATMs are found, a 400 Bad Request response will be returned with a corresponding message.
 
-400 Bad Request: If no matching ATMs are found.
-💌 Contributions and Feedback
-We welcome your feedback and contributions. Please feel free to open an issue or submit a pull request.
+Note: Ensure to replace placeholders (like "latitude", "longitude", etc.) with actual data when making requests.
 
-📜 License
-This project is licensed under the MIT License. See the LICENSE.md file for details.

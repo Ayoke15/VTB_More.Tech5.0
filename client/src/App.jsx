@@ -1,11 +1,11 @@
-import Header from './components/UI/Header'
+import Header from './components/UI/Header/Header'
+import YandexMaps from './components/YandexMaps/YandexMaps'
 
 function App() {
   return (
     <>
-     <Header>
-
-     </Header>
+     <Header />
+     <YandexMaps />
     </>
   )
 }

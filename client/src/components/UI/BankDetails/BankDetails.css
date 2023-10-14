@@ -1,0 +1,41 @@
+.bank-container {
+    position: absolute;
+    width: 450.78px;
+    height: 866px;
+    left: 0px;
+    top: 146px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.bank-card {
+    position: relative;
+    width: 437px;
+    height: 866px;
+    background: #1E4BD2;
+    border-radius: 30px;
+    padding: 84px 18px;
+}
+
+.vtb-logo {
+    position: absolute;
+    width: 35.48px;
+    height: 45.87px;
+    left: 18px;
+    top: 84px;
+}
+
+.bank-details {
+    position: absolute;
+    width: 340.41px;
+    height: 129.04px;
+    left: 68.06px;
+    top: 86.22px;
+    font-family: 'Alata';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 25px;
+    line-height: 34px;
+    color: #FFFFFF;
+}

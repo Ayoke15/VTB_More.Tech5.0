@@ -9,10 +9,7 @@ const YandexMaps = () => {
 
         // Дальнейший код инициализации карты
 
-        map.controls.remove('typeSelector');
-        map.controls.remove('rulerControl');
         map.controls.remove('fullscreenControl');
-        map.behaviors.disable(['scrollZoom']);
       });
     
   return (

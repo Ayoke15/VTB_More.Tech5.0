@@ -1,0 +1,12 @@
+.menu {
+    display: flex;
+    flex-wrap: wrap;
+    position: absolute;
+    width: 25%;
+    height: 100vh;
+    left: 0px;
+    top: -10%;
+    background: #FFFFFF;
+    border-radius: 30px;
+    z-index: 1;
+}

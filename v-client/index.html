@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>More Tech 5.0</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <script src="https://api-maps.yandex.ru/2.1/?apikey=10accd02-af1d-4b63-8aab-a815eee7d66c&lang=ru_RU" type="text/javascript"></script>
+    <script src="scripts/route_panel_control.js"></script>
+    <link rel="stylesheet" href="./styles/Header.css">>
+    <link rel="stylesheet" href="./styles/Menu.css">>
+</head>
+
+<body>
+  <header>
+    <div className='figure_mini'>
+    </div>
+    <div className='figure'>
+    </div>
+      <nav>
+        <div>
+          <button class="segment-button" id="showOffices">
+            Отделения
+          </button>
+          <button class="segment-button" id="showATMs">
+            Банкоматы
+          </button>
+        </div>
+        <img href="./public/VTB_logo_ru.png" className='logo'></img>
+      </nav>
+  </header>
+  <div className="menu" id="offices">
+    <div id="input-container">
+      <input type="text" id="input" placeholder="Город, район, улица...">
+    </div>
+    <br/>
+      <h3>Выбрать сегмент</h3>
+      <div className="button-group">
+        <button className="segment-button">
+          Физические лица
+        </button>
+        <button className="segment-button">
+          Привилегия
+        </button>
+        <button className="segment-button">
+          Юридические лица
+        </button>
+        <button className="segment-button">
+          Прайм
+        </button>
+    <h3>Уточнить услуги</h3>
+        <button className="segment-button">
+          Доступно для маломобильных граждан
+        </button>
+        <button className="segment-button">
+          Рядом метро
+        </button>
+      <button className='search_office'>
+        Подобрать отделение
+      </button>
+      </div>
+    </div>
+  <div className="menu" id="atms">
+      <div id="input-container">
+        <input type="text" id="input" placeholder="Город, район, улица...">
+      </div>
+      <br/>
+        <h3>Поддерживает валюты</h3>
+        <div className="button-group">
+          <button className="segment-button">
+            Рубли
+          </button>
+          <button className="segment-button">
+            Доллары
+          </button>
+          <button className="segment-button">
+            Евро
+          </button>
+      <h3>Уточнить услуги</h3>
+          <button className="segment-button">
+            Круглосуточно
+          </button>
+          <button className="segment-button">
+            NFC
+          </button>
+          <button className="segment-button">
+            Оборудован для слабовидящих
+          </button>
+          <button className="segment-button">
+            Оборудован для людей с ограниченной мобильностью
+          </button>
+          <button className="segment-button">
+            QR-код
+          </button>
+        <button className='search_office'>
+          Подобрать банкомат
+        </button>
+        </div>
+    </div>
+    <div className="bank-branch-container">
+      <h3>Мы подобрали отделения на основе ваших критериев!</h3>
+      <div className="branch-card">
+        <p>ДО «Солнечногорский» Филиала № 7701... 141506, Московская область, г. Солнечногорск, ул. Красная, д. 60</p>
+      </div>
+      <div className="branch-card">
+        <p>ДО «Солнечногорский» Филиала № 7701... 141506, Московская область, г. Солнечногорск, ул. Красная, д. 60</p>
+      </div>
+    </div>
+  </div>
+  </div>
+    <div id="map" style="
+    width: 100%; 
+    height: 100%;
+    position: absolute">
+  </div>
+  <script>
+      const showOfficesButton = document.getElementById("showOffices");
+      const showATMsButton = document.getElementById("showATMs");
+      const officesMenu = document.getElementById("offices");
+      const atmsMenu = document.getElementById("atms");
+  
+      showOfficesButton.addEventListener("click", () => {
+        officesMenu.style.display = "block";
+        atmsMenu.style.display = "none";
+      });
+  
+      showATMsButton.addEventListener("click", () => {
+        officesMenu.style.display = "none";
+        atmsMenu.style.display = "block";
+      });
+  </script>
+</body>
+
+</html>

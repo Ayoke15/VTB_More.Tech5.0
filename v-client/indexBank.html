@@ -107,6 +107,33 @@
     officesMenu.style.display = "none";
     atmsMenu.style.display = "block";
   });
+
+
+  ymaps.ready(function () {
+    var myMap = new ymaps.Map('map', {
+      center: [55.76, 37.64], // координаты центра карты (Москва)
+      zoom: 10
+    });
+
+    // Добавление объектов на карту (иконки банкоматов и отделений)
+    var atmPlacemark = new ymaps.Placemark([55.76, 37.64], { hintContent: 'Банкомат' });
+    var officePlacemark = new ymaps.Placemark([55.77, 37.65], { hintContent: 'Отделение' });
+
+    myMap.geoObjects.add(atmPlacemark);
+    myMap.geoObjects.add(officePlacemark);
+
+    // Обработчик события клика на иконку
+    atmPlacemark.events.add('click', function () {
+      officesMenu.style.display = "none";
+      atmsMenu.style.display = "block";
+    });
+
+    officePlacemark.events.add('click', function () {
+      atmsMenu.style.display = "none";
+      officesMenu.style.display = "block";
+    });
+  });
+
 </script>
 </body>
 </html>

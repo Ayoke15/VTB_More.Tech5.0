@@ -187,3 +187,17 @@ body{
     background: #163880; /* Добавленный стиль для эффекта при наведении */
 }
 
+.branch-info {
+    background-color: #0D47A1;
+    padding: 10px;
+    margin-top: 10px;
+}
+
+.branch-info h3, .branch-info h4 {
+    margin: 5px 0;
+}
+
+.branch-info p {
+    margin: 2px 0;
+}
+

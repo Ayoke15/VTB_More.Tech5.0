@@ -161,6 +161,13 @@ type SalePointFilter struct {
 	Rating int `json:"rating"`
 }
 
+func sendErrorResponse(w http.ResponseWriter, status int, message string) {
+	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(status)
+	errorResponse := map[string]string{"error": message}
+	json.NewEncoder(w).Encode(errorResponse)
+}
+
 // getATMsHandler retrieves a list of ATMs.
 //
 //	@Summary		Get a list of ATMs
@@ -171,7 +178,7 @@ type SalePointFilter struct {
 func getATMsHandler(w http.ResponseWriter, r *http.Request) {
 	rows, err := db.Query("SELECT * FROM ATM")
 	if err != nil {
-		http.Error(w, err.Error(), http.StatusInternalServerError)
+		sendErrorResponse(w, http.StatusInternalServerError, "Failed to retrieve ATMs")
 		return
 	}
 	defer rows.Close()
@@ -181,7 +188,7 @@ func getATMsHandler(w http.ResponseWriter, r *http.Request) {
 		var atm ATM
 		err := rows.Scan(&atm.ID, &atm.Address, &atm.Latitude, &atm.Longitude, &atm.AllDay, &atm.Services)
 		if err != nil {
-			http.Error(w, err.Error(), http.StatusInternalServerError)
+			sendErrorResponse(w, http.StatusInternalServerError, "Failed to scan ATM data")
 			return
 		}
 		atms = append(atms, atm)
@@ -204,14 +211,14 @@ func createATMHandler(w http.ResponseWriter, r *http.Request) {
 	var newATM ATM
 	err := json.NewDecoder(r.Body).Decode(&newATM)
 	if err != nil {
-		http.Error(w, err.Error(), http.StatusBadRequest)
+		sendErrorResponse(w, http.StatusBadRequest, "Invalid JSON data")
 		return
 	}
 
 	result, err := db.Exec("INSERT INTO ATM (address, latitude, longitude, allDay, services) VALUES (?, ?, ?, ?, ?)",
 		newATM.Address, newATM.Latitude, newATM.Longitude, newATM.AllDay, newATM.Services)
 	if err != nil {
-		http.Error(w, err.Error(), http.StatusInternalServerError)
+		sendErrorResponse(w, http.StatusInternalServerError, "Failed to create ATM")
 		return
 	}
 
@@ -284,7 +291,7 @@ func deleteATMHandler(w http.ResponseWriter, r *http.Request) {
 func getATMFiltersHandler(w http.ResponseWriter, r *http.Request) {
 	rows, err := db.Query("SELECT * FROM ATM_Filters")
 	if err != nil {
-		http.Error(w, err.Error(), http.StatusInternalServerError)
+		sendErrorResponse(w, http.StatusInternalServerError, "Failed to retrieve ATM filters")
 		return
 	}
 	defer rows.Close()
@@ -294,7 +301,7 @@ func getATMFiltersHandler(w http.ResponseWriter, r *http.Request) {
 		var atmFilter ATMFilter
 		err := rows.Scan(&atmFilter.ID, &atmFilter.Cash)
 		if err != nil {
-			http.Error(w, err.Error(), http.StatusInternalServerError)
+			sendErrorResponse(w, http.StatusInternalServerError, "Failed to scan ATM filter data")
 			return
 		}
 		atmFilters = append(atmFilters, atmFilter)
@@ -317,13 +324,13 @@ func createATMFilterHandler(w http.ResponseWriter, r *http.Request) {
 	var newATMFilter ATMFilter
 	err := json.NewDecoder(r.Body).Decode(&newATMFilter)
 	if err != nil {
-		http.Error(w, err.Error(), http.StatusBadRequest)
+		sendErrorResponse(w, http.StatusBadRequest, "Invalid JSON data")
 		return
 	}
 
 	result, err := db.Exec("INSERT INTO ATM_Filters (id_atms, cash) VALUES (?, ?)", newATMFilter.ID, newATMFilter.Cash)
 	if err != nil {
-		http.Error(w, err.Error(), http.StatusInternalServerError)
+		sendErrorResponse(w, http.StatusInternalServerError, "Failed to create ATM filter")
 		return
 	}
 
@@ -404,7 +411,7 @@ func deleteATMFilterHandler(w http.ResponseWriter, r *http.Request) {
 func getSalePointsHandler(w http.ResponseWriter, r *http.Request) {
 	rows, err := db.Query("SELECT * FROM SalePoint")
 	if err != nil {
-		http.Error(w, err.Error(), http.StatusInternalServerError)
+		sendErrorResponse(w, http.StatusInternalServerError, "Failed to retrieve SalePoints")
 		return
 	}
 	defer rows.Close()
@@ -417,7 +424,7 @@ func getSalePointsHandler(w http.ResponseWriter, r *http.Request) {
 			&salePoint.Latitude, &salePoint.Longitude, &salePoint.MetroStation, &salePoint.Distance, &salePoint.Kep, &salePoint.MyBranch,
 			&salePoint.Network, &salePoint.SalePointCode)
 		if err != nil {
-			http.Error(w, err.Error(), http.StatusInternalServerError)
+			sendErrorResponse(w, http.StatusInternalServerError, "Failed to scan SalePoint data")
 			return
 		}
 		salePoints = append(salePoints, salePoint)
@@ -440,14 +447,14 @@ func createSalePointHandler(w http.ResponseWriter, r *http.Request) {
 	var newSalePoint SalePoint
 	err := json.NewDecoder(r.Body).Decode(&newSalePoint)
 	if err != nil {
-		http.Error(w, err.Error(), http.StatusBadRequest)
+		sendErrorResponse(w, http.StatusBadRequest, "Invalid JSON data")
 		return
 	}
 
 	result, err := db.Exec("INSERT INTO SalePoint (offices_id, salePointName, address, status, openHours, rko, openHoursIndividual, officeType, salePointFormat, suoAvailability, hasRamp, latitude, longitude, metroStation, distance, kep, myBranch, network, salePointCode) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
 		newSalePoint.ID, newSalePoint.SalePointName, newSalePoint.Address, newSalePoint.Status, newSalePoint.OpenHours, newSalePoint.RKO, newSalePoint.OpenHoursIndividual, newSalePoint.OfficeType, newSalePoint.SalePointFormat, newSalePoint.SUOAvailability, newSalePoint.HasRamp, newSalePoint.Latitude, newSalePoint.Longitude, newSalePoint.MetroStation, newSalePoint.Distance, newSalePoint.Kep, newSalePoint.MyBranch, newSalePoint.Network, newSalePoint.SalePointCode)
 	if err != nil {
-		http.Error(w, err.Error(), http.StatusInternalServerError)
+		sendErrorResponse(w, http.StatusInternalServerError, "Failed to create SalePoint")
 		return
 	}
 
@@ -530,7 +537,7 @@ func deleteSalePointHandler(w http.ResponseWriter, r *http.Request) {
 func getSalePointFiltersHandler(w http.ResponseWriter, r *http.Request) {
 	rows, err := db.Query("SELECT * FROM SalePointFilter")
 	if err != nil {
-		http.Error(w, err.Error(), http.StatusInternalServerError)
+		sendErrorResponse(w, http.StatusInternalServerError, "Failed to retrieve SalePoint filters")
 		return
 	}
 	defer rows.Close()
@@ -540,7 +547,7 @@ func getSalePointFiltersHandler(w http.ResponseWriter, r *http.Request) {
 		var salePointFilter SalePointFilter
 		err := rows.Scan(&salePointFilter.ID, &salePointFilter.CurrentWorkload, &salePointFilter.Rating)
 		if err != nil {
-			http.Error(w, err.Error(), http.StatusInternalServerError)
+			sendErrorResponse(w, http.StatusInternalServerError, "Failed to scan SalePointFilter data")
 			return
 		}
 		salePointFilters = append(salePointFilters, salePointFilter)
@@ -563,13 +570,13 @@ func createSalePointFilterHandler(w http.ResponseWriter, r *http.Request) {
 	var newSalePointFilter SalePointFilter
 	err := json.NewDecoder(r.Body).Decode(&newSalePointFilter)
 	if err != nil {
-		http.Error(w, err.Error(), http.StatusBadRequest)
+		sendErrorResponse(w, http.StatusBadRequest, "Invalid JSON data")
 		return
 	}
 
 	result, err := db.Exec("INSERT INTO SalePointFilter (offices_id, current_workload, rating) VALUES (?, ?, ?)", newSalePointFilter.ID, newSalePointFilter.CurrentWorkload, newSalePointFilter.Rating)
 	if err != nil {
-		http.Error(w, err.Error(), http.StatusInternalServerError)
+		sendErrorResponse(w, http.StatusInternalServerError, "Failed to create SalePointFilter")
 		return
 	}
 

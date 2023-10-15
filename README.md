@@ -16,3 +16,6 @@
 
 ## Ссылка на хост! МИЛОСТИ ПРОСИМ :3
 https://railway.app/project/94f617a7-a934-4f13-9cb5-786446d68c21/plugin/c14221ed-069c-44df-b78f-f02fa236b11a
+
+## Макет в Figma
+https://www.figma.com/file/PdMGoVvHZ7DkuOLPIZ1zLG/SIGA-%2F-MORE.Tech-5.0?type=design&node-id=0%3A1&mode=design&t=ksVQF3pNgHcFBd0a-1

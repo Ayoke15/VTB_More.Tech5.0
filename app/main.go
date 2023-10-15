@@ -6,7 +6,8 @@ import (
 	"fmt"
 	"log"
 	"net/http"
-
+	"strconv"
+	
 	_ "github.com/go-sql-driver/mysql"
 	"github.com/gorilla/mux"
 	httpSwagger "github.com/swaggo/http-swagger"
@@ -222,6 +223,57 @@ func createATMHandler(w http.ResponseWriter, r *http.Request) {
 	json.NewEncoder(w).Encode(newATM)
 }
 
+func updateATMHandler(w http.ResponseWriter, r *http.Request) {
+	params := mux.Vars(r)
+	atmID, err := strconv.Atoi(params["atmID"])
+	if err != nil {
+		http.Error(w, "Invalid ID", http.StatusBadRequest)
+		return
+	}
+
+	// Сначала получаем существующие данные ATM
+	var existingATM ATM
+	err = db.QueryRow("SELECT id_atms, address, latitude, longitude, allDay, services FROM ATM WHERE id_atms = ?", atmID).Scan(
+		&existingATM.ID, &existingATM.Address, &existingATM.Latitude, &existingATM.Longitude, &existingATM.AllDay, &existingATM.Services)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+
+	// Затем декодируем новую информацию
+	var newATM ATM
+	err = json.NewDecoder(r.Body).Decode(&newATM)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusBadRequest)
+		return
+	}
+
+	// Обновляем информацию
+	_, err = db.Exec("UPDATE ATM SET address = ?, latitude = ?, longitude = ?, allDay = ?, services = ? WHERE id_atms = ?",
+		newATM.Address, newATM.Latitude, newATM.Longitude, newATM.AllDay, newATM.Services, atmID)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+
+	w.Header().Set("Content-Type", "application/json")
+	json.NewEncoder(w).Encode(newATM)
+}
+
+
+// deleteATMHandler deletes an ATM entry by ID.
+func deleteATMHandler(w http.ResponseWriter, r *http.Request) {
+    ATMID := mux.Vars(r)["id"]
+
+    _, err := db.Exec("DELETE FROM ATM WHERE id_atms=?", ATMID)
+    if err != nil {
+        http.Error(w, err.Error(), http.StatusInternalServerError)
+        return
+    }
+
+    w.WriteHeader(http.StatusOK)
+}
+
 // getATMFiltersHandler retrieves a list of ATM filters.
 //
 //	@Summary		Get a list of ATM filters
@@ -281,6 +333,65 @@ func createATMFilterHandler(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
 	w.WriteHeader(http.StatusCreated)
 	json.NewEncoder(w).Encode(newATMFilter)
+}
+
+// updateATMFilterHandler обновляет существующий фильтр ATM по его ID.
+func updateATMFilterHandler(w http.ResponseWriter, r *http.Request) {
+	params := mux.Vars(r)
+	atmFilterID, err := strconv.Atoi(params["id"])
+	if err != nil {
+		http.Error(w, "Invalid ATM Filter ID", http.StatusBadRequest)
+		return
+	}
+
+	var updatedATMFilter ATMFilter
+	err = json.NewDecoder(r.Body).Decode(&updatedATMFilter)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusBadRequest)
+		return
+	}
+
+	// Сначала получаем существующие данные фильтра ATM
+	var existingATMFilter ATMFilter
+	err = db.QueryRow("SELECT id_atms, cash FROM ATM_Filters WHERE id_atms = ?", atmFilterID).Scan(
+		&existingATMFilter.ID, &existingATMFilter.Cash)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+
+	// Обновляем только необходимые поля
+	if updatedATMFilter.Cash != 0 {
+		existingATMFilter.Cash = updatedATMFilter.Cash
+	}
+
+	// Выполняем обновление фильтра ATM в базе данных
+	_, err = db.Exec("UPDATE ATM_Filters SET cash = ? WHERE id_atms = ?", existingATMFilter.Cash, atmFilterID)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+
+	w.WriteHeader(http.StatusNoContent)
+}
+
+// deleteATMFilterHandler удаляет фильтр ATM по его ID.
+func deleteATMFilterHandler(w http.ResponseWriter, r *http.Request) {
+	params := mux.Vars(r)
+	atmFilterID, err := strconv.Atoi(params["id"])
+	if err != nil {
+		http.Error(w, "Invalid ATM Filter ID", http.StatusBadRequest)
+		return
+	}
+
+	// Удаляем фильтр ATM из базы данных
+	_, err = db.Exec("DELETE FROM ATM_Filters WHERE id_atms = ?", atmFilterID)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+
+	w.WriteHeader(http.StatusNoContent)
 }
 
 // getSalePointsHandler retrieves a list of SalePoints.
@@ -348,6 +459,67 @@ func createSalePointHandler(w http.ResponseWriter, r *http.Request) {
 	json.NewEncoder(w).Encode(newSalePoint)
 }
 
+// updateSalePointHandler обновляет данные о SalePoint по его ID.
+// @Summary		Обновить данные SalePoint
+// @Description	Обновить данные SalePoint по его ID
+// @Accept		json
+// @Produce		json
+// @Param		officeID	path	int	true	"ID SalePoint"
+// @Param		updatedSalePoint	body	SalePoint	true	"Обновленные данные SalePoint"
+// @Success		200	{object}	SalePoint
+// @Failure		400	{string}	string
+// @Router		/salepoint/{officeID} [put]
+func updateSalePointHandler(w http.ResponseWriter, r *http.Request) {
+	params := mux.Vars(r)
+	officeID, err := strconv.Atoi(params["officeID"])
+	if err != nil {
+		http.Error(w, "Invalid ID", http.StatusBadRequest)
+		return
+	}
+
+	var updatedSalePoint SalePoint
+	err = json.NewDecoder(r.Body).Decode(&updatedSalePoint)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusBadRequest)
+		return
+	}
+
+	_, err = db.Exec("UPDATE SalePoint SET salePointName = ?, address = ?, status = ?, openHours = ?, rko = ?, openHoursIndividual = ?, officeType = ?, salePointFormat = ?, suoAvailability = ?, hasRamp = ?, latitude = ?, longitude = ?, metroStation = ?, distance = ?, kep = ?, myBranch = ?, network = ?, salePointCode = ? WHERE offices_id = ?",
+		updatedSalePoint.SalePointName, updatedSalePoint.Address, updatedSalePoint.Status, updatedSalePoint.OpenHours, updatedSalePoint.RKO, updatedSalePoint.OpenHoursIndividual, updatedSalePoint.OfficeType, updatedSalePoint.SalePointFormat, updatedSalePoint.SUOAvailability, updatedSalePoint.HasRamp, updatedSalePoint.Latitude, updatedSalePoint.Longitude, updatedSalePoint.MetroStation, updatedSalePoint.Distance, updatedSalePoint.Kep, updatedSalePoint.MyBranch, updatedSalePoint.Network, updatedSalePoint.SalePointCode, officeID)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+
+	updatedSalePoint.ID = officeID
+	w.Header().Set("Content-Type", "application/json")
+	json.NewEncoder(w).Encode(updatedSalePoint)
+}
+
+// deleteSalePointHandler удаляет SalePoint по его ID.
+// @Summary		Удалить SalePoint
+// @Description	Удалить SalePoint по его ID
+// @Param		officeID	path	int	true	"ID SalePoint"
+// @Success		204	{string}	string
+// @Failure		400	{string}	string
+// @Router		/salepoint/{officeID} [delete]
+func deleteSalePointHandler(w http.ResponseWriter, r *http.Request) {
+	params := mux.Vars(r)
+	officeID, err := strconv.Atoi(params["officeID"])
+	if err != nil {
+		http.Error(w, "Invalid ID", http.StatusBadRequest)
+		return
+	}
+
+	_, err = db.Exec("DELETE FROM SalePoint WHERE offices_id = ?", officeID)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+
+	w.WriteHeader(http.StatusNoContent)
+}
+
 // getSalePointFiltersHandler retrieves a list of SalePoint filters.
 //
 //	@Summary		Get a list of SalePoint filters
@@ -407,4 +579,62 @@ func createSalePointFilterHandler(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
 	w.WriteHeader(http.StatusCreated)
 	json.NewEncoder(w).Encode(newSalePointFilter)
+}
+
+// updateSalePointFilterHandler обновляет информацию о SalePointFilter.
+// @Summary		Обновить SalePointFilter
+// @Description	Обновить информацию о SalePointFilter
+// @Accept		json
+// @Param		filterID	path	int	true	"ID SalePointFilter"
+// @Param		newFilter	body	SalePointFilter	true	"Новая информация о SalePointFilter"
+// @Success		200	{object}	SalePointFilter
+// @Failure		400	{string}	string
+// @Router		/salepoint_filters/{filterID} [put]
+func updateSalePointFilterHandler(w http.ResponseWriter, r *http.Request) {
+	params := mux.Vars(r)
+	filterID, err := strconv.Atoi(params["filterID"])
+	if err != nil {
+		http.Error(w, "Invalid ID", http.StatusBadRequest)
+		return
+	}
+
+	var newFilter SalePointFilter
+	err = json.NewDecoder(r.Body).Decode(&newFilter)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusBadRequest)
+		return
+	}
+
+	_, err = db.Exec("UPDATE SalePointFilter SET current_workload = ?, rating = ? WHERE offices_id = ?", newFilter.CurrentWorkload, newFilter.Rating, filterID)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+
+	w.Header().Set("Content-Type", "application/json")
+	json.NewEncoder(w).Encode(newFilter)
+}
+
+// deleteSalePointFilterHandler удаляет SalePointFilter по его ID.
+// @Summary		Удалить SalePointFilter
+// @Description	Удалить SalePointFilter по его ID
+// @Param		filterID	path	int	true	"ID SalePointFilter"
+// @Success		204	{string}	string
+// @Failure		400	{string}	string
+// @Router		/salepoint_filters/{filterID} [delete]
+func deleteSalePointFilterHandler(w http.ResponseWriter, r *http.Request) {
+	params := mux.Vars(r)
+	filterID, err := strconv.Atoi(params["filterID"])
+	if err != nil {
+		http.Error(w, "Invalid ID", http.StatusBadRequest)
+		return
+	}
+
+	_, err = db.Exec("DELETE FROM SalePointFilter WHERE offices_id = ?", filterID)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+
+	w.WriteHeader(http.StatusNoContent)
 }

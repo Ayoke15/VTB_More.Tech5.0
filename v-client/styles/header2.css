@@ -1,0 +1,106 @@
+header {
+    position: fixed;
+    top: 0;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    height: 80px;
+    width: 100%;
+    background: #ffffff;
+    border-bottom: 5px solid #00aaff;
+    padding: 0;
+    margin: 0;
+    left: 0;
+    box-sizing: border-box;
+    z-index: 1;
+}
+
+.logo {
+    display: flex;
+    margin-left: 20px;
+    height: 30%;
+    width: 30%;
+}
+
+.figure_mini, .figure {
+    position: absolute;
+    background: #00AAFF;
+    clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%, 0% 0%, 100% 0%);
+    transform: skew(-30deg);
+}
+
+.figure_mini {
+    width: 160px;
+    height: 32px;
+    left: -10px;
+    top: 55px;
+}
+
+.figure {
+    width: 30%;
+    height: 80px;
+    left: -40px;
+    top: 75px;
+    background: #082C84;
+    box-shadow: inset -5px 0px 0px #00AAFF;
+    z-index: 2;
+}
+
+.figure::after {
+    content: "ВТБ";
+    position: absolute;
+    left: 80px;
+    top: 0;
+    font-family: 'VTB Group UI';
+    font-size: 48px;
+    line-height: 80px;
+    color: #FFFFFF;
+}
+
+
+
+header nav > div {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: auto;
+}
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center; /* это свойство вертикально выравнивает дочерние элементы по центру */
+    padding: 0 20px; /* добавлен отступ с обеих сторон, чтобы элементы не прилипали к краям */
+}
+
+#container {
+    display: flex;
+    gap: 10px; /* добавляет промежуток между кнопками */
+}
+
+.logo {
+    height: 50px; /* например, задать высоту для логотипа */
+}
+
+@media (max-width: 1440px) {
+    .figure {
+        width: 60%;
+    }
+}
+
+@media (max-width: 768px) {
+    header {
+        height: 60px;
+    }
+
+    .logo {
+        margin-right: 70%;
+        margin-left: 0%;
+        width: 20%;
+        height: 20%;
+    }
+
+    .figure, .figure_mini {
+        display: none;
+    }
+}
+

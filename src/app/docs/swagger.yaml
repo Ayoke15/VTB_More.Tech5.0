@@ -1,0 +1,302 @@
+basePath: /
+definitions:
+  main.ATM:
+    properties:
+      address:
+        description: |-
+          ATM address
+          required: true
+        type: string
+      allDay:
+        description: |-
+          Indicates if the ATM operates 24/7
+          required: true
+        type: string
+      id_atms:
+        description: |-
+          ID of the ATM
+          required: true
+        type: integer
+      latitude:
+        description: |-
+          Latitude of the ATM
+          required: true
+        type: number
+      longitude:
+        description: |-
+          Longitude of the ATM
+          required: true
+        type: number
+      services:
+        description: |-
+          Services provided by the ATM
+          required: true
+        type: string
+    type: object
+  main.ATMFilter:
+    properties:
+      cash:
+        description: |-
+          Cash filter for the ATM
+          required: true
+        type: integer
+      id_atms:
+        description: |-
+          ID of the ATM Filter
+          required: true
+        type: integer
+    type: object
+  main.SalePoint:
+    properties:
+      address:
+        description: |-
+          SalePoint Address
+          required: true
+        type: string
+      distance:
+        description: |-
+          Distance
+          required: true
+        type: integer
+      hasRamp:
+        description: |-
+          Has Ramp
+          required: true
+        type: string
+      kep:
+        description: |-
+          Kep
+          required: true
+        type: string
+      latitude:
+        description: |-
+          Latitude of the SalePoint
+          required: true
+        type: number
+      longitude:
+        description: |-
+          Longitude of the SalePoint
+          required: true
+        type: number
+      metroStation:
+        description: |-
+          Metro Station
+          required: true
+        type: string
+      myBranch:
+        description: |-
+          My Branch
+          required: true
+        type: string
+      network:
+        description: |-
+          Network
+          required: true
+        type: string
+      officeType:
+        description: |-
+          Office Type
+          required: true
+        type: string
+      offices_id:
+        description: |-
+          ID of the SalePoint
+          required: true
+        type: integer
+      openHours:
+        description: |-
+          SalePoint Open Hours
+          required: true
+        type: string
+      openHoursIndividual:
+        description: |-
+          Open Hours Individual
+          required: true
+        type: string
+      rko:
+        description: |-
+          RKO
+          required: true
+        type: string
+      salePointCode:
+        description: |-
+          SalePoint Code
+          required: true
+        type: string
+      salePointFormat:
+        description: |-
+          SalePoint Format
+          required: true
+        type: string
+      salePointName:
+        description: |-
+          SalePoint Name
+          required: true
+        type: string
+      status:
+        description: |-
+          SalePoint Status
+          required: true
+        type: string
+      suoAvailability:
+        description: |-
+          SUO Availability
+          required: true
+        type: string
+    type: object
+  main.SalePointFilter:
+    properties:
+      current_workload:
+        description: |-
+          Current Workload filter for SalePoint
+          required: true
+        type: integer
+      offices_id:
+        description: |-
+          ID of the SalePoint Filter
+          required: true
+        type: integer
+      rating:
+        description: |-
+          Rating filter for SalePoint
+          required: true
+        type: integer
+    type: object
+info:
+  contact:
+    email: youremail@example.com
+    name: Your Name
+  description: Your API description
+  termsOfService: https://example.com/terms
+  title: Your API Title
+  version: "1.0"
+paths:
+  /atm:
+    get:
+      description: Retrieve a list of ATMs
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/main.ATM'
+            type: array
+      summary: Get a list of ATMs
+    post:
+      consumes:
+      - application/json
+      description: Create a new ATM entry
+      parameters:
+      - description: New ATM data
+        in: body
+        name: newATM
+        required: true
+        schema:
+          $ref: '#/definitions/main.ATM'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/main.ATM'
+      summary: Create a new ATM
+  /atm_filters:
+    get:
+      description: Retrieve a list of ATM filters
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/main.ATMFilter'
+            type: array
+      summary: Get a list of ATM filters
+    post:
+      consumes:
+      - application/json
+      description: Create a new ATM filter entry
+      parameters:
+      - description: New ATM filter data
+        in: body
+        name: newATMFilter
+        required: true
+        schema:
+          $ref: '#/definitions/main.ATMFilter'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/main.ATMFilter'
+      summary: Create a new ATM filter
+  /salepoint:
+    get:
+      description: Retrieve a list of SalePoints
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/main.SalePoint'
+            type: array
+      summary: Get a list of SalePoints
+    post:
+      consumes:
+      - application/json
+      description: Create a new SalePoint entry
+      parameters:
+      - description: New SalePoint data
+        in: body
+        name: newSalePoint
+        required: true
+        schema:
+          $ref: '#/definitions/main.SalePoint'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/main.SalePoint'
+      summary: Create a new SalePoint
+  /salepoint_filters:
+    get:
+      description: Retrieve a list of SalePoint filters
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/main.SalePointFilter'
+            type: array
+      summary: Get a list of SalePoint filters
+    post:
+      consumes:
+      - application/json
+      description: Create a new SalePoint filter entry
+      parameters:
+      - description: New SalePoint filter data
+        in: body
+        name: newSalePointFilter
+        required: true
+        schema:
+          $ref: '#/definitions/main.SalePointFilter'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/main.SalePointFilter'
+      summary: Create a new SalePoint filter
+swagger: "2.0"

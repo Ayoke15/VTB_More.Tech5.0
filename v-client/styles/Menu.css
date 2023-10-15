@@ -4,19 +4,30 @@ body{
     align-content: center;
 }
 .menu {
-    margin-top:240px;
+    margin-top:16%;
     padding-left: 1%;
     display: flex;
     flex-wrap: wrap;
     position: fixed;
     width: 25%;
-    height: 100vh;
+    height: 75%;
     left: 0px;
     top: -10%;
     background: #FFFFFF;
     border-radius: 30px;
     z-index: 1;
     overflow-y: auto; /* Добавленная строка */
+}
+.menu::-webkit-scrollbar {
+    width: 11px;
+    background-color: rgba(255, 255, 255, 0.5);
+    border-radius: 5px;
+}
+.menu::-webkit-scrollbar-thumb {
+    background: #082C84;
+    border: 1px solid rgba(255, 255, 255, 0.1475);
+    border-radius: 3.5px;
+    width: 7px;
 }
 
 #input-container {

@@ -4,30 +4,19 @@ body{
     align-content: center;
 }
 .menu {
-    margin-top:16%;
+    margin-top:240px;
     padding-left: 1%;
     display: flex;
     flex-wrap: wrap;
     position: fixed;
     width: 25%;
-    height: 75%;
+    height: 100vh;
     left: 0px;
     top: -10%;
-    background: #1e4bd2;
+    background: #2a4aca;
     border-radius: 30px;
     z-index: 1;
     overflow-y: auto; /* Добавленная строка */
-}
-.menu::-webkit-scrollbar {
-    width: 11px;
-    background-color: rgba(255, 255, 255, 0.5);
-    border-radius: 5px;
-}
-.menu::-webkit-scrollbar-thumb {
-    background: #082C84;
-    border: 1px solid rgba(255, 255, 255, 0.1475);
-    border-radius: 3.5px;
-    width: 7px;
 }
 
 #input-container {
@@ -35,10 +24,10 @@ body{
     padding-top: 1%;
     left: 32px;
     top: 225px;
-}
+  }
 
-
-#input {
+  
+  #input {
     display: flex;
     justify-content: center;
     margin-top: 50px;
@@ -49,23 +38,23 @@ body{
     border: none;
     padding-left: 10px;
     font-size: 16px;
-}
-
-.segment {
+  }
+  
+  .segment {
     display: flex;
     width: 284px;
     height: 116px;
     left: 50px;
     top: 320px;
 }
-
-.button-group {
+  
+  .button-group {
     display: block;
     justify-content: center;
     flex-wrap: wrap;
-}
-
-.segment-button {
+  }
+  
+  .segment-button {
     position: relative;
     background: #FFFFFF;
     border: 1px solid #00AAFF;
@@ -78,14 +67,14 @@ body{
     color: #00AAFF;
     padding: 10px 15px 5px 10px;
     text-align: center;
-    margin: 5px;
-}
+      margin: 5px;
+  }
 
-.segment-button:focus {
+  .segment-button:focus {
     background: #082C84;
     border: 0px solid #00AAFF;
     color: #FFFFFF;
-}
+  }
 
 
 
@@ -115,54 +104,48 @@ body{
     padding-top: 500px;
     padding-left: 30px;
     width: 359px;
-}
-
-h3 {
+  }
+  
+  h3 {
     font-family: 'VTB Group UI';
     font-style: normal;
     font-weight: 400;
-    font-size: 10px;
-    line-height: 30px;
+    font-size: 13px;
+    line-height: 17px;
     color: #000000;
     border-bottom: 1px solid #DCE0EB;
     padding-bottom: 15px;
     margin-bottom: 15px;
-    margin-top: 15px;
-}
-
-.branch-card {
+  }
+  
+  .branch-card {
     display: flex;
     align-items: center;
     height: 45px;
     margin-bottom: 2px;
-}
-
-.branch-card:hover {
+  }
+  
+  .branch-card:hover {
     background-color: rgba(0, 0, 0, 0.05);  /* при наведении плашка немного темнеет */
-}
-
-.branch-card img {
+  }
+  
+  .branch-card img {
     width: 35px;
     height: 45px;
     margin-right: 10px;
-}
-
-.branch-card p {
+  }
+  
+  .branch-card p {
     font-family: 'VTB Group UI';
     font-style: normal;
     font-weight: 500;
     font-size: 14px;
     line-height: 18px;
     color: #000000;
-}
+  }
 
-#offices {
-    display: none;
-}
 
-#atms {
-    display: none;
-}
+
 .find-atm-button {
     position: relative;
     width: 330px;
@@ -185,66 +168,6 @@ h3 {
 }
 
 .find-atm-button:hover {
-    background: #1a2e80; /* Добавленный стиль для эффекта при наведении */
+    background: #163880; /* Добавленный стиль для эффекта при наведении */
 }
 
-.branch-info {
-    /*background-color: #0D47A1;*/
-    padding: 10px;
-    margin-top: 10px;
-}
-
-.branch-info h3, .branch-info h4 {
-    margin: 5px 0;
-}
-
-.branch-info p {
-    margin: 2px 0;
-}
-
-#offices {
-    font-family: Arial, sans-serif;
-    background-color: #1e4bd2;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
-
-.button-group {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-.branch-info h3 {
-    color: #ffffff;
-    margin-bottom: 15px;
-    font-size: 24px;
-}
-
-.branch-info p {
-    color: #ffffff;
-    margin-bottom: 10px;
-    font-size: 16px;
-}
-
-.branch-info h4 {
-    color: #ffffff;
-    margin-bottom: 10px;
-    margin-top: 20px;
-    font-size: 18px;
-}
-
-button {
-    background-color: #63a9fa;
-    color: #fff;
-    padding: 10px 20px;
-    border-radius: 5px;
-    border: none;
-    cursor: pointer;
-    transition: background-color 0.3s;
-}
-
-button:hover {
-    background-color: #1a2e80;
-}

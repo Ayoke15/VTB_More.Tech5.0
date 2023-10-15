@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>More Tech 5.0</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <script src="https://api-maps.yandex.ru/2.1/?apikey=10accd02-af1d-4b63-8aab-a815eee7d66c&lang=ru_RU" type="text/javascript"></script>
+    <script src="scripts/route_panel_control.js"></script>
+    <link rel="stylesheet" href="./styles/Header.css">
+    <link rel="stylesheet" href="styles/Menu2.css">
+</head>
+
+<body>
+<header>
+    <div class='figure_mini'></div>
+    <div class='figure'></div>
+
+
+
+
+    <nav>
+        <div id="container">
+            <button class="segment-button" id="showOffices">Отделения</button>
+            <button class="segment-button" id="showATMs">Банкоматы</button>
+        </div>
+        <img src="./public/VTB_logo_ru.png" class='logo'>
+    </nav>
+</header>
+
+<div class="menu" id="atms" >
+    <div class="button-group">
+        <div class="branch-info">
+            <h3>ДО «Солнечногорский» Филиала №7701...</h3>
+            <p>141506, Московская область, г. Солнечногорск, ул. Красная, д. 60</p>
+            <h4>Режим работы отделения</h4>
+            <p>Для физических лиц</p>
+            <p>пн-пт: 10:00–19:00 сб, вс: выходной</p>
+            <p>Для юридических лиц</p>
+            <p>пн-чт: 10:00–19:00 пт: 10:00–18:00 сб, вс: выходной</p>
+            <h4>Ближайшая станция метро</h4>
+            <p>МЦД-1 Белорусско-Савёловский диаметр, станция Долгопрудная</p>
+            <h4>Загруженность отделения на данный момент</h4>
+            <p>Отделение сейчас сильно загружено, лучше попробовать обратиться в другое отделение</p>
+            <h4>Доступная среда</h4>
+            <button>Проложить маршрут</button>
+        </div>
+    </div>
+    <br/>
+</div>
+<div class="menu" id="offices" >
+
+    <div class="button-group">
+        <div class="branch-info">
+            <h3>ДО «Солнечногорский» Филиала №7701...</h3>
+            <p>141506, Московская область, г. Солнечногорск, ул. Красная, д. 60</p>
+            <h4>Режим работы отделения</h4>
+            <p>Для физических лиц</p>
+            <p>пн-пт: 10:00–19:00 сб, вс: выходной</p>
+            <p>Для юридических лиц</p>
+            <p>пн-чт: 10:00–19:00 пт: 10:00–18:00 сб, вс: выходной</p>
+            <h4>Ближайшая станция метро</h4>
+            <p>МЦД-1 Белорусско-Савёловский диаметр, станция Долгопрудная</p>
+            <h4>Загруженность отделения на данный момент</h4>
+            <p>Отделение сейчас сильно загружено, лучше попробовать обратиться в другое отделение</p>
+            <button>Проложить маршрут</button>
+        </div>
+    </div>
+    <br/>
+</div>
+<div id="map" style="
+  width: 100%;
+  height: 100%;
+  position: absolute">
+</div>
+<script>
+    const showOfficesButton = document.getElementById("showOffices");
+    const showATMsButton = document.getElementById("showATMs");
+    const atmsMenu = document.getElementById("atms");
+    const officesMenu = document.getElementById("offices");
+
+    showOfficesButton.addEventListener("click", () => {
+        atmsMenu.style.display = "none";
+        officesMenu.style.display = "block";
+    });
+
+    showATMsButton.addEventListener("click", () => {
+        officesMenu.style.display = "none";
+        atmsMenu.style.display = "block";
+    });
+</script>
+</body>
+</html>

@@ -2,12 +2,12 @@ header {
     position: fixed;
     top: 0;
     display: flex;
-    justify-content: end; /* Added to push the logo to the right */
-    align-items: center; /* Vertically center align the logo */
+    justify-content: flex-end;
+    align-items: center;
     height: 80px;
     width: 100%;
     background: #ffffff;
-    border-bottom: 5px solid #00aaff; /* Combined border property */
+    border-bottom: 5px solid #00aaff;
     padding: 0;
     margin: 0;
     left: 0;
@@ -17,49 +17,66 @@ header {
 
 .logo {
     display: flex;
-    width: 30%;
+    margin-left: 20px;
     height: 30%;
-    margin-left: 70%;
+    width: 30%;
 }
 
-.figure_mini {
+.figure_mini, .figure {
     position: absolute;
-    width: 160px;
-    height: 32px;
-    left: -10px;
-    top: 55px;
     background: #00AAFF;
     clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%, 0% 0%, 100% 0%);
     transform: skew(-30deg);
 }
 
+.figure_mini {
+    width: 160px;
+    height: 32px;
+    left: -10px;
+    top: 55px;
+}
+
 .figure {
-    position: absolute;
     width: 30%;
     height: 80px;
     left: -40px;
     top: 75px;
     background: #082C84;
     box-shadow: inset -5px 0px 0px #00AAFF;
-    clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%, 0% 0%, 100% 0%);
-    transform: skew(-30deg);
     z-index: 2;
 }
 
 .figure::after {
-    content: "Отделения"; /* Текст, который будет добавлен поверх фигуры */
-    transform: skew(+30deg);
+    content: "Отделения";
     position: absolute;
-    width: 341px;
-    height: 82px;
     left: 80px;
     top: 0;
     font-family: 'VTB Group UI';
-    font-style: normal;
-    font-weight: 600;
     font-size: 48px;
     line-height: 80px;
     color: #FFFFFF;
+}
+
+header nav > div {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: auto;
+}
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center; /* это свойство вертикально выравнивает дочерние элементы по центру */
+    padding: 0 20px; /* добавлен отступ с обеих сторон, чтобы элементы не прилипали к краям */
+}
+
+#container {
+    display: flex;
+    gap: 10px; /* добавляет промежуток между кнопками */
+}
+
+.logo {
+    height: 50px; /* например, задать высоту для логотипа */
 }
 
 @media (max-width: 1440px) {
@@ -67,24 +84,21 @@ header {
         width: 60%;
     }
 }
+
 @media (max-width: 768px) {
     header {
-        height: 60px; /* Adjust the height for mobile devices */
+        height: 60px;
     }
-    
+
     .logo {
         margin-right: 70%;
         margin-left: 0%;
         width: 20%;
         height: 20%;
-        justify-content: start; /* Center the logo horizontally for mobile devices */
     }
 
-    .figure {
-        visibility: hidden;
-    }
-
-    .figure_mini {
-        visibility: hidden;
+    .figure, .figure_mini {
+        display: none;
     }
 }
+

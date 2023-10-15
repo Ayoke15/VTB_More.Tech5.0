@@ -1,7 +1,13 @@
+body{
+    display: flex;
+    /*justify-content: center;*/
+    align-content: center;
+}
 .menu {
+    margin-top:150px;
     display: flex;
     flex-wrap: wrap;
-    position: absolute;
+    position: relative;
     width: 25%;
     height: 100vh;
     left: 0px;
@@ -17,6 +23,7 @@
     left: 32px;
     top: 225px;
   }
+
   
   #input {
     display: flex;
@@ -141,3 +148,4 @@
   #atms {
     display: none;
   }
+

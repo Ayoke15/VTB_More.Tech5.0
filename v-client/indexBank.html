@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>More Tech 5.0</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <script src="https://api-maps.yandex.ru/2.1/?apikey=10accd02-af1d-4b63-8aab-a815eee7d66c&lang=ru_RU" type="text/javascript"></script>
+  <script src="scripts/route_panel_control.js"></script>
+  <link rel="stylesheet" href="./styles/Header.css">
+  <link rel="stylesheet" href="./styles/Menu.css">
+</head>
+
+<body>
+<header>
+  <div class='figure_mini'></div>
+  <div class='figure'></div>
+  <nav>
+    <div id="container">
+      <button class="segment-button" id="showOffices">Отделения</button>
+      <button class="segment-button" id="showATMs">Банкоматы</button>
+    </div>
+    <img src="./public/VTB_logo_ru.png" class='logo'>
+  </nav>
+</header>
+
+<div class="menu" id="atms" >
+  <div id="input-container2">
+    <input type="text" id="input" placeholder="Город, район, улица...">
+  </div>
+  <br/>
+  <h3>Фильтры для банкоматов</h3>
+  <div class="button-group">
+    <button class="segment-button">Эффективность РКО</button>
+    <button class="segment-button">Скорость обслуживания</button>
+    <button class="segment-button">Доступ с пандусом</button>
+    <button class="segment-button">Тип офиса</button>
+    <button class="segment-button">Стиль продажи</button>
+    <button class="segment-button">Управление офисом</button>
+    <button class="segment-button">Самообслуживающие терминалы</button>
+    <button class="segment-button">Персонализированный офис</button>
+    <button class="segment-button">Другие услуги</button>
+    <button class="segment-button">Безналичный расчет</button>
+    <div className="bank-branch-container">
+      <h3>Мы подобрали отделения на основе ваших критериев!</h3>
+      <div className="branch-card">
+        <p>ДО «Солнечногорский» Филиала № 7701... 141506, Московская область, г. Солнечногорск, ул. Красная, д. 60</p>
+      </div>
+      <div className="branch-card">
+        <p>ДО «Солнечногорский» Филиала № 7701... 141506, Московская область, г. Солнечногорск, ул. Красная, д. 60</p>
+      </div>
+    </div>
+  </div>
+  <br/>
+</div>
+<div class="menu" id="offices" style="display: none;">
+  <div id="input-container">
+    <input type="text" id="input-offices" placeholder="Город, район, улица...">
+  </div>
+  <br/>
+  <h3>Фильтры для отделений</h3>
+  <div class="button-group">
+    <button class="segment-button">Часы работы</button>
+    <button class="segment-button">Тип отделения</button>
+    <button class="segment-button">Доступность</button>
+    <button class="segment-button">Услуги</button>
+    <button class="segment-button">Режим работы</button>
+    <button class="segment-button">Круглосуточно</button>
+    <button class="segment-button">Выходные</button>
+    <button class="segment-button">Кредитные продукты</button>
+    <button class="segment-button">Валютный обмен</button>
+    <button class="segment-button">Инвестиционные продукты</button>
+    <button class="segment-button">Депозиты</button>
+    <button class="segment-button">Сейфовые ячейки</button>  </div>
+  <div className="bank-branch-container">
+    <h3>Мы подобрали отделения на основе ваших критериев!</h3>
+    <div className="branch-card">
+      <p>ДО «Солнечногорский» Филиала № 7701... 141506, Московская область, г. Солнечногорск, ул. Красная, д. 60</p>
+    </div>
+    <div className="branch-card">
+      <p>ДО «Солнечногорский» Филиала № 7701... 141506, Московская область, г. Солнечногорск, ул. Красная, д. 60</p>
+    </div>
+  </div>
+  <br/>
+</div>
+<div id="map" style="
+  width: 100%;
+  height: 100%;
+  position: absolute">
+</div>
+<script>
+  const showOfficesButton = document.getElementById("showOffices");
+  const showATMsButton = document.getElementById("showATMs");
+  const atmsMenu = document.getElementById("atms");
+  const officesMenu = document.getElementById("offices");
+
+  showOfficesButton.addEventListener("click", () => {
+    atmsMenu.style.display = "none";
+    officesMenu.style.display = "block";
+  });
+
+  showATMsButton.addEventListener("click", () => {
+    officesMenu.style.display = "none";
+    atmsMenu.style.display = "block";
+  });
+</script>
+</body>
+</html>

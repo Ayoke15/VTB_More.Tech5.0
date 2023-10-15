@@ -145,9 +145,10 @@ body{
     height: 45px;
     margin-right: 10px;
   }
+
   
   .branch-card p {
-    font-family: 'VTB Group UI';
+    font-family: Arial, sans-serif;
     font-style: normal;
     font-weight: 500;
     font-size: 14px;
